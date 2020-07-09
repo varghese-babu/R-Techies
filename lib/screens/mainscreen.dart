@@ -3,6 +3,7 @@ import 'package:Personal_Valet/components/round_iconbutton.dart';
 import 'package:Personal_Valet/components/reusable_card.dart';
 import 'package:Personal_Valet/screens/toget.dart';
 import 'package:Personal_Valet/screens/addtask.dart';
+import 'package:Personal_Valet/screens/togive.dart';
 
 var balance;
 
@@ -93,7 +94,7 @@ class Homeui extends StatelessWidget {
                   child: FlatButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Toget()));
+                          MaterialPageRoute(builder: (context) => Togive()));
                     },
                     child: Container(
                       decoration: BoxDecoration(
