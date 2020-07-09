@@ -5,6 +5,9 @@ class Addtaskscr extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+       /* padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),*/
+        // padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         //color: Color(0xFF757575),
         child: Container(
           padding: EdgeInsets.only(top: 30, left: 40, right: 40),
@@ -29,7 +32,20 @@ class Addtaskscr extends StatelessWidget {
               TextField(
                 enabled: true,
                 //cursorColor: Colors.black,
-                textAlign: TextAlign.center,
+                //textAlign: TextAlign.center,
+                decoration: InputDecoration(hintText: "enter name"),
+              ),
+              TextField(
+                enabled: true,
+                //cursorColor: Colors.black,
+                //textAlign: TextAlign.center,
+                decoration: InputDecoration(hintText: "amount"),
+              ),
+              TextField(
+                enabled: true,
+                //cursorColor: Colors.black,
+                //textAlign: TextAlign.center,
+                decoration: InputDecoration(hintText: "enter name"),
               ),
               SizedBox(
                 height: 10,
