@@ -1,30 +1,79 @@
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:Personal_Valet/pages/homepage.dart';
+import 'package:Personal_Valet/user/userdata.dart';
+import 'package:Personal_Valet/widget/circularprogress.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
-// class User {
-//   final String id;
-//   final String profileName;
-//   final String username;
-//   final String url;
-//   final String email;
-//   final String bio;
+// class Post {
+//   final String postId;
+//   final String ownerId;
+//   final int amount;
+//   final String userwhom;
+//   final String timestamp;
 
-//   User({
-//     this.id,
-//     this.profileName,
-//     this.username,
-//     this.url,
-//     this.email,
-//     this.bio,
-//   });
+//   Post({this.postId, this.ownerId, this.amount, this.userwhom, this.timestamp});
 
-//   factory User.fromDocument(DocumentSnapshot doc) {
-//     return User(
-//       id: doc.documentID,
-//       email: doc['email'],
-//       username: doc['username'],
-//       url: doc['url'],
-//       profileName: doc['profileName'],
-//       bio: doc['bio'],
+//   factory Post.fromDocument(DocumentSnapshot documentSnapshot) {
+//     return Post(
+//       postId: documentSnapshot["postId"],
+//       ownerId: documentSnapshot["ownerId"],
+//       amount: documentSnapshot["amount"],
+//       userwhom: documentSnapshot["userwhom"],
+//       timestamp: documentSnapshot["timestamp"],
 //     );
 //   }
+//   @override
+//   _PostState createState() => _PostState(
+//         postId: this.postId,
+//         ownerId: this.ownerId,
+//       );
 // }
+
+class Post extends StatefulWidget {
+  final String postId;
+  final String ownerId;
+  final int amount;
+  final String userwhom;
+  final String timestamp;
+
+  Post({this.postId, this.ownerId, this.amount, this.userwhom, this.timestamp});
+
+  factory Post.fromDocument(DocumentSnapshot documentSnapshot) {
+    return Post(
+      postId: documentSnapshot["postId"],
+      ownerId: documentSnapshot["ownerId"],
+      amount: documentSnapshot["amount"],
+      userwhom: documentSnapshot["userwhom"],
+      timestamp: documentSnapshot["timestamp"],
+    );
+  }
+
+  @override
+  _PostState createState() => _PostState(
+      postId: this.postId,
+      ownerId: this.ownerId,
+      amount: this.amount,
+      userwhom: this.userwhom,
+      timestamp: this.timestamp);
+}
+
+class _PostState extends State<Post> {
+  final String postId;
+  final String ownerId;
+  final int amount;
+  final String userwhom;
+  final timestamp;
+
+  int likeCount;
+  bool isLiked;
+  bool showHeart = false;
+  // final String currentOnlineUserId = currentUser?.id;
+  _PostState(
+      {this.postId, this.ownerId, this.amount, this.userwhom, this.timestamp});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}

@@ -94,8 +94,8 @@ class _HomeuiState extends State<Homeui> {
                   onPressed: () {
                     showModalBottomSheet(
                         context: context,
-                        builder: (context) => changebalance(
-                              oper: false,
+                        builder: (context) => changebalance1(
+                              oper: true,
                               currentOnlineUserId: currentOnlineUserId,
                             ));
                   },
@@ -111,8 +111,11 @@ class _HomeuiState extends State<Homeui> {
                 Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Toget()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Toget(gCurrentUser: widget.userProfileId)));
                     },
                     child: Container(
                       height: 150,
@@ -136,8 +139,12 @@ class _HomeuiState extends State<Homeui> {
                 Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Toget()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Toget(
+                                    gCurrentUser: widget.userProfileId,
+                                  )));
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -215,7 +222,7 @@ class _HomeuiState extends State<Homeui> {
                         }
                       },
                       child: Text(
-                        "Add",
+                        "Deposit",
                         style: TextStyle(color: Colors.black54, fontSize: 25),
                       ),
                     ),
@@ -237,6 +244,90 @@ class _HomeuiState extends State<Homeui> {
       print(user.currentwallet + valuechanged);
       usersReference.document(currentOnlineUserId).updateData({
         "currentwallet": user.currentwallet + valuechanged,
+      });
+      setState(() {});
+    }
+  }
+
+  changebalance1({bool oper, String currentOnlineUserId}) {
+    return Container(
+      //git color: Color(0xFF757575),
+      child: Container(
+        padding: EdgeInsets.only(top: 30, left: 40, right: 40),
+        decoration: BoxDecoration(
+          //color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              "Change amount",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.yellow,
+                fontSize: 30,
+              ),
+            ),
+            Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 40,
+                    ),
+                    TextFormField(
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                      validator: (input) {
+                        final valueChanged = int.tryParse(input);
+                        return valueChanged == 0
+                            ? 'Input needs to be digits only'
+                            : null;
+                      },
+                      onSaved: (input) {
+                        valuechanged = int.parse(input);
+                      },
+                      keyboardType: TextInputType.number,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FlatButton(
+                      color: Colors.yellow,
+                      onPressed: () {
+                        if (oper) {
+                          updateUserData1(currentOnlineUserId);
+                          //call function to deposit fund
+                        } else {
+                          //call function to withdraw amount
+                        }
+                      },
+                      child: Text(
+                        "Withdraw",
+                        style: TextStyle(color: Colors.black54, fontSize: 25),
+                      ),
+                    ),
+                  ],
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+
+  updateUserData1(currentOnlineUserId) async {
+    DocumentSnapshot documentSnapshot =
+        await usersReference.document(currentOnlineUserId).get();
+    User user = User.fromDocument(documentSnapshot);
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print(user.currentwallet + valuechanged);
+      usersReference.document(currentOnlineUserId).updateData({
+        "currentwallet": user.currentwallet - valuechanged,
       });
       setState(() {});
     }
