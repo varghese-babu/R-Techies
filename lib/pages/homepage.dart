@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Personal_Valet/pages/userpage.dart';
 import 'package:Personal_Valet/pages/usersettings.dart';
 import 'package:Personal_Valet/user/userdata.dart';
@@ -19,6 +21,33 @@ class _HomepageState extends State<Homepage> {
   final DateTime timestamp = DateTime.now();
   User currentUser;
   String username;
+  bool isSignedIn = false;
+  void initState() {
+    super.initState();
+
+    googleSignIn.onCurrentUserChanged.listen((gSigninAccount) {
+      controlSignIn(gSigninAccount);
+    }, onError: (gError) {
+      print("Error Message: " + gError);
+    });
+
+    // gSignIn.signIn().then((gSignInAccount){
+    //   controlSignIn(gSignInAccount);
+    // });
+  }
+
+  controlSignIn(GoogleSignInAccount signInAccount) async {
+    if (signInAccount != null) {
+      await saveUserInfoToFirestore();
+      setState(() {
+        isSignedIn = true;
+      });
+    } else {
+      setState(() {
+        isSignedIn = false;
+      });
+    }
+  }
 
   Future<String> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -48,54 +77,15 @@ class _HomepageState extends State<Homepage> {
     print("User Sign Out");
   }
 
-  Scaffold userSettings() {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'User settings',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        ),
-        body: Form(
-            child: ListView(
-          children: <Widget>[
-            SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 25, bottom: 17, right: 25),
-              child: Container(
-                width: (MediaQuery.of(context).size.width / 2) - 50,
-                child: TextFormField(
-                  initialValue: returnName(),
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                  validator: (val) {
-                    if (val.isEmpty) {
-                      return "Enter username";
-                    }
-                  },
-                  onSaved: (val) => username = val,
-                  decoration: InputDecoration(
-                    labelText: "Enter Username",
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 70, right: 70),
-              child: submitButton(),
-            ),
-          ],
-        )));
+  loginUser() {
+    googleSignIn.signIn();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  logoutUser() {
+    googleSignIn.signOut();
+  }
+
+  Scaffold buildHomeScreen() {
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -164,19 +154,20 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    if (isSignedIn) {
+      return UserProfile();
+    } else {
+      return buildHomeScreen();
+    }
+  }
+
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
       onPressed: () {
-        signInWithGoogle().whenComplete(() {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return navigationtoProfile();
-              },
-            ),
-          );
-        });
+        loginUser();
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       highlightElevation: 0,
@@ -204,76 +195,28 @@ class _HomepageState extends State<Homepage> {
     );
   }
 
-  String returnName() {
-    final GoogleSignInAccount gCurrentUser = googleSignIn.currentUser;
-    return gCurrentUser.displayName;
-  }
-
-  Widget submitButton() {
-    return OutlineButton(
-      onPressed: () => submit(),
-      splashColor: Colors.greenAccent,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      highlightElevation: 0,
-      borderSide: BorderSide(color: Colors.grey),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(left: 0),
-              child: Text(
-                'Submit',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   saveUserInfoToFirestore() async {
     final GoogleSignInAccount gCurrentUser = googleSignIn.currentUser;
     DocumentSnapshot documentSnapshot =
         await usersReference.document(gCurrentUser.id).get();
 
-    // if (!documentSnapshot.exists) {
-    //   final username = await Navigator.push(context,
-    //       MaterialPageRoute(builder: (context) => CreateAccountPage()));
+    if (!documentSnapshot.exists) {
+      final username = await Navigator.push(
+          context, MaterialPageRoute(builder: (context) => UserSettings()));
 
-    usersReference.document(gCurrentUser.id).setData({
-      "id": gCurrentUser.id,
-      "profileName": gCurrentUser.displayName,
-      "username": username,
-      "url": gCurrentUser.photoUrl,
-      "email": gCurrentUser.email,
-      "timestamp": timestamp,
-    });
+      usersReference.document(gCurrentUser.id).setData({
+        "id": gCurrentUser.id,
+        "profileName": gCurrentUser.displayName,
+        "username": username,
+        "url": gCurrentUser.photoUrl,
+        "email": gCurrentUser.email,
+        "bio": "",
+        "timestamp": timestamp,
+      });
 
-    documentSnapshot = await usersReference.document(gCurrentUser.id).get();
-    // }
+      documentSnapshot = await usersReference.document(gCurrentUser.id).get();
+    }
 
     currentUser = User.fromDocument(documentSnapshot);
-  }
-
-  submit() {
-    saveUserInfoToFirestore();
-  }
-
-  navigationtoProfile() {
-    bool userbool;
-
-    print(userbool);
-    if (userbool) {
-      return userSettings();
-    } else {
-      return UserProfile();
-    }
   }
 }

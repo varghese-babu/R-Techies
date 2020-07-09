@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:Personal_Valet/pages/homepage.dart';
@@ -12,39 +14,30 @@ class UserSettings extends StatefulWidget {
 }
 
 class _UserSettingsState extends State<UserSettings> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final usersReference = Firestore.instance.collection("users");
   String username;
   final DateTime timestamp = DateTime.now();
 
-  // saveUserInfoToFirestore() async {
-  //   final GoogleSignInAccount gCurrentUser = googleSignIn.currentUser;
-  //   DocumentSnapshot documentSnapshot =
-  //       await usersReference.document(gCurrentUser.id).get();
+  submit() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
 
-  //   if (!documentSnapshot.exists) {
-  //     final username = await Navigator.push(context,
-  //         MaterialPageRoute(builder: (context) => CreateAccountPage()));
-
-  //     usersReference.document(gCurrentUser.id).setData({
-  //       "id": gCurrentUser.id,
-  //       "profileName": gCurrentUser.displayName,
-  //       "username": username,
-  //       "url": gCurrentUser.photoUrl,
-  //       "email": gCurrentUser.email,
-  //       "bio": "",
-  //       "timestamp": timestamp,
-  //     });
-
-  //     documentSnapshot = await usersReference.document(gCurrentUser.id).get();
-  //   }
-
-  //   currentUser = User.fromDocument(documentSnapshot);
-  // }
+      SnackBar snackBar = SnackBar(content: Text("Welcome " + username));
+      _scaffoldKey.currentState.showSnackBar(snackBar);
+      Timer(Duration(seconds: 4), () {
+        Navigator.pop(context, username);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text(
             'User settings',
@@ -54,39 +47,40 @@ class _UserSettingsState extends State<UserSettings> {
           ),
         ),
         body: Form(
+            key: _formKey,
             child: ListView(
-          children: <Widget>[
-            SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 25, bottom: 17, right: 25),
-              child: Container(
-                width: (MediaQuery.of(context).size.width / 2) - 50,
-                child: TextFormField(
-                  initialValue: widget.userName,
-                  style: TextStyle(color: Colors.white, fontSize: 17),
-                  validator: (val) {
-                    if (val.isEmpty) {
-                      return "Enter username";
-                    }
-                  },
-                  onSaved: (val) => username = val,
-                  decoration: InputDecoration(
-                    labelText: "Enter Username",
+              children: <Widget>[
+                SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 25, bottom: 17, right: 25),
+                  child: Container(
+                    width: (MediaQuery.of(context).size.width / 2) - 50,
+                    child: TextFormField(
+                      initialValue: widget.userName,
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                      validator: (val) {
+                        if (val.isEmpty) {
+                          return "Enter username";
+                        }
+                      },
+                      onSaved: (val) => username = val,
+                      decoration: InputDecoration(
+                        labelText: "Enter Username",
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 70, right: 70),
-              child: submitButton(),
-            ),
-          ],
-        )));
+                SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 70, right: 70),
+                  child: submitButton(),
+                ),
+              ],
+            )));
   }
 
   Widget submitButton() {
@@ -117,6 +111,4 @@ class _UserSettingsState extends State<UserSettings> {
       ),
     );
   }
-
-  submit() {}
 }
