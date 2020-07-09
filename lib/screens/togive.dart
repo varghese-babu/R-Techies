@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'addtask.dart';
 
-class Togive extends StatelessWidget {
+class Toget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,18 +35,15 @@ class Togive extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 30),
               child: Text(
-                "To Give",
-                style: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 25,
-                ),
+                "To Get",
+                style: TextStyle(color: Colors.white54, fontSize: 25),
               ),
             ),
             Expanded(
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 // shrinkWrap: true,
-                itemCount: 10,
+                itemCount: 5,
                 itemBuilder: (context, index) {
                   return Align(
                     alignment: Alignment.centerRight,
@@ -62,10 +58,6 @@ class Togive extends StatelessWidget {
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          showModalBottomSheet(
-              context: context, builder: (context) => Addtaskscr());
-        }),
       ),
     );
   }
@@ -95,7 +87,7 @@ class Cards extends StatelessWidget {
             width: 10,
           ),
           Text(
-            "Rs ${amount} \nfrom ${name}}",
+            "Rs ${amount} \nfrom ${name}",
             style: TextStyle(color: Colors.white54, fontSize: 25),
           ),
           SizedBox(
@@ -117,7 +109,7 @@ class Cards extends StatelessWidget {
                   width: 80,
                   color: Colors.yellow,
                   child: Text(
-                    "Paid",
+                    "Received",
                     style: TextStyle(color: Colors.black),
                     textAlign: TextAlign.center,
                   ),

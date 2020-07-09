@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'addtask.dart';
 
 class Toget extends StatelessWidget {
   @override
@@ -37,17 +36,14 @@ class Toget extends StatelessWidget {
               padding: const EdgeInsets.only(left: 30),
               child: Text(
                 "To Get",
-                style: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 25,
-                ),
+                style: TextStyle(color: Colors.white54, fontSize: 25),
               ),
             ),
             Expanded(
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 // shrinkWrap: true,
-                itemCount: 10,
+                itemCount: 5,
                 itemBuilder: (context, index) {
                   return Align(
                     alignment: Alignment.centerRight,
@@ -62,13 +58,63 @@ class Toget extends StatelessWidget {
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton(onPressed: () {
-          showModalBottomSheet(
-              context: context, builder: (context) => Addtaskscr());
-        }),
+        bottomNavigationBar: BottomAppBar(
+          child: Container(
+            height: 50.0,
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => takeImage(context),
+          tooltip: 'Increment Counter',
+          child: Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
   }
+}
+
+takeImage(mContext) {
+  return showDialog(
+    context: mContext,
+    builder: (context) {
+      return SimpleDialog(
+        title: Text(
+          "Add details",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        children: <Widget>[
+          SimpleDialogOption(
+            child: Text(
+              "Capture Image with Camera",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onPressed: () {},
+          ),
+          SimpleDialogOption(
+            child: Text(
+              "Select Image from Gallary",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onPressed: () {},
+          ),
+          SimpleDialogOption(
+            child: Text(
+              "Cancel",
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+            onPressed: () {},
+          ),
+        ],
+      );
+    },
+  );
 }
 
 class Cards extends StatelessWidget {
@@ -95,7 +141,7 @@ class Cards extends StatelessWidget {
             width: 10,
           ),
           Text(
-            "Rs ${amount} \nfrom ${name}}",
+            "Rs ${amount} \nfrom ${name}",
             style: TextStyle(color: Colors.white54, fontSize: 25),
           ),
           SizedBox(

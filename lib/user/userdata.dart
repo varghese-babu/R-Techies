@@ -7,24 +7,25 @@ class User {
   final String url;
   final String email;
   final String bio;
+  final int currentwallet;
 
-  User({
-    this.id,
-    this.profileName,
-    this.username,
-    this.url,
-    this.email,
-    this.bio,
-  });
+  User(
+      {this.id,
+      this.profileName,
+      this.username,
+      this.url,
+      this.email,
+      this.bio,
+      this.currentwallet});
 
   factory User.fromDocument(DocumentSnapshot doc) {
     return User(
-      id: doc.documentID,
-      email: doc['email'],
-      username: doc['username'],
-      url: doc['url'],
-      profileName: doc['profileName'],
-      bio: doc['bio'],
-    );
+        id: doc.documentID,
+        email: doc['email'],
+        username: doc['username'],
+        url: doc['url'],
+        profileName: doc['profileName'],
+        bio: doc['bio'],
+        currentwallet: doc['currentwallet']);
   }
 }

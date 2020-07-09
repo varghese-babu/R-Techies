@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:Personal_Valet/pages/sidebar.dart';
 import 'package:Personal_Valet/pages/userpage.dart';
 import 'package:Personal_Valet/pages/usersettings.dart';
 import 'package:Personal_Valet/user/userdata.dart';
@@ -8,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
+
+final usersReference = Firestore.instance.collection("users");
+final postsReference = Firestore.instance.collection("posts");
 
 class Homepage extends StatefulWidget {
   @override
@@ -77,7 +81,7 @@ class _HomepageState extends State<Homepage> {
     print("User Sign Out");
   }
 
-  loginUser() async{
+  loginUser() async {
     await googleSignIn.signIn();
   }
 
@@ -93,7 +97,7 @@ class _HomepageState extends State<Homepage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text("Personal Valet",
+            Text("Personal Wallet",
                 style: TextStyle(
                     color: Colors.white, fontFamily: "Bangers", fontSize: 40)),
             Text("tagline",
@@ -157,7 +161,7 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     if (isSignedIn) {
-      return UserProfile();
+      return Foldable(userProfileId: currentUser.id);
     } else {
       return buildHomeScreen();
     }
@@ -166,8 +170,8 @@ class _HomepageState extends State<Homepage> {
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
-      onPressed: () async{
-       await loginUser();
+      onPressed: () async {
+        await loginUser();
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       highlightElevation: 0,
@@ -212,6 +216,7 @@ class _HomepageState extends State<Homepage> {
         "email": gCurrentUser.email,
         "bio": "",
         "timestamp": timestamp,
+        "currentwallet": 0,
       });
 
       documentSnapshot = await usersReference.document(gCurrentUser.id).get();
