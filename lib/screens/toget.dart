@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'addtask.dart';
 
 class Toget extends StatelessWidget {
   @override
@@ -36,28 +37,35 @@ class Toget extends StatelessWidget {
               padding: const EdgeInsets.only(left: 30),
               child: Text(
                 "To Get",
-                style: TextStyle(color: Colors.white54, fontSize: 25),
+                style: TextStyle(
+                  color: Colors.white54,
+                  fontSize: 25,
+                ),
               ),
             ),
             Expanded(
-                          child: ListView.builder(
+              child: ListView.builder(
                 physics: BouncingScrollPhysics(),
-               // shrinkWrap: true,
+                // shrinkWrap: true,
                 itemCount: 10,
                 itemBuilder: (context, index) {
-                   return Align(
-                     alignment: Alignment.centerRight,
-                                        child: Cards(
-                  amount: "5000",
-                  name: "Jishnu",
-                  date: "09-07-2020",
-                ),
-                   );
-                },    
+                  return Align(
+                    alignment: Alignment.centerRight,
+                    child: Cards(
+                      amount: "5000",
+                      name: "Jishnu",
+                      date: "09-07-2020",
+                    ),
+                  );
+                },
               ),
             )
           ],
         ),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          showModalBottomSheet(
+              context: context, builder: (context) => Addtaskscr());
+        }),
       ),
     );
   }
