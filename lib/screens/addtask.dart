@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Addtaskscr extends StatelessWidget {
+class Addtaskscr extends StatefulWidget {
+  @override
+  _AddtaskscrState createState() => _AddtaskscrState();
+}
+
+class _AddtaskscrState extends State<Addtaskscr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
        /* padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),*/
