@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:Personal_Valet/components/round_iconbutton.dart';
 import 'package:Personal_Valet/components/reusable_card.dart';
 import 'package:Personal_Valet/screens/toget.dart';
+import 'package:Personal_Valet/screens/addtask.dart';
 
 var balance;
 
@@ -42,12 +43,18 @@ class Homeui extends StatelessWidget {
               children: <Widget>[
                 RoundiconButton(
                   icon: Icons.add,
+                  onPressed: (){
+                    showModalBottomSheet(context: context, builder: (context)=>changebalance(oper: true,));
+                  }
                 ),
                 SizedBox(
                   width: 40,
                 ),
                 RoundiconButton(
                   icon: Icons.minimize,
+                  onPressed: (){
+                    showModalBottomSheet(context: context, builder: (context)=>changebalance(oper: false,));
+                  },
                 ),
               ],
             ),

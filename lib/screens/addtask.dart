@@ -28,7 +28,7 @@ class _AddtaskscrState extends State<Addtaskscr> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                "Add Task",
+                "Add",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.yellow,
@@ -60,7 +60,7 @@ class _AddtaskscrState extends State<Addtaskscr> {
                 color: Colors.yellow,
                 onPressed: () {},
                 child: Text(
-                  "Add",
+                  "Change",
                   style: TextStyle(
                     color: Colors.black54,
                     fontSize: 25,
@@ -69,6 +69,65 @@ class _AddtaskscrState extends State<Addtaskscr> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class changebalance extends StatelessWidget {
+  changebalance({this.oper});
+  bool oper;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Color(0xFF757575),
+      child: Container(
+        padding: EdgeInsets.only(top: 30, left: 40, right: 40),
+        decoration: BoxDecoration(
+          //color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Text(
+              "Change amount",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.yellow,
+                fontSize: 30,
+              ),
+            ),
+            TextField(
+              
+              enabled: true,
+              //cursorColor: Colors.black,
+              
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            FlatButton(
+              color: Colors.yellow,
+              onPressed: () {
+                if(oper){
+                  //call function to deposit fund
+                }
+                else{
+                  //call function to withdraw amount
+                }
+              },
+              child: Text(
+                "Add",
+                style: TextStyle(color: Colors.black54, fontSize: 25),
+              ),
+            ),
+          ],
         ),
       ),
     );
