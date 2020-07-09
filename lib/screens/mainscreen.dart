@@ -3,9 +3,13 @@ import 'package:Personal_Valet/components/round_iconbutton.dart';
 import 'package:Personal_Valet/components/reusable_card.dart';
 import 'package:Personal_Valet/screens/toget.dart';
 
+var balance;
+
+
 class Homeui extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    balance=5000;
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -23,7 +27,7 @@ class Homeui extends StatelessWidget {
                     style: TextStyle(color: Colors.yellow, fontSize: 30),
                   ),
                   Text(
-                    "5000",
+                    "${balance}",
                     style: TextStyle(color: Colors.yellow, fontSize: 30),
                   ),
                 ],
@@ -47,26 +51,31 @@ class Homeui extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 80,),
+            SizedBox(
+              height: 80,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>Toget()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Toget()));
                     },
                     child: Container(
                       height: 150,
                       width: 200,
-                      
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.black26,
                       ),
                       child: Align(
-                        alignment: Alignment.center,
-                        child: Text("To Get",textAlign: TextAlign.center,)),
+                          alignment: Alignment.center,
+                          child: Text(
+                            "To Get",
+                            textAlign: TextAlign.center,
+                          )),
                     ),
                   ),
                 ),
@@ -76,17 +85,17 @@ class Homeui extends StatelessWidget {
                 Expanded(
                   child: FlatButton(
                     onPressed: () {
-                       Navigator.push(context,MaterialPageRoute(builder: (context)=>Toget()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Toget()));
                     },
                     child: Container(
-                       decoration: BoxDecoration(
+                      decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: Colors.black26,
                       ),
                       height: 150,
                       child: Align(
-                        alignment: Alignment.center,
-                        child: Text("To Give")),
+                          alignment: Alignment.center, child: Text("To Give")),
                     ),
                   ),
                 ),
