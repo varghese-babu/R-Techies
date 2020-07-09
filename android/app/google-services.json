@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "422372402168",
+    "firebase_url": "https://personal-valet.firebaseio.com",
+    "project_id": "personal-valet",
+    "storage_bucket": "personal-valet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:422372402168:android:b39bb08af7248e2d9dac0d",
+        "android_client_info": {
+          "package_name": "com.RTechies.personalvalet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "422372402168-dpp970vcv83cmt9gd37lqsu83hc2a6er.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.RTechies.personalvalet",
+            "certificate_hash": "448d81214d2c770e4db0c0ca942edff2d562fecd"
+          }
+        },
+        {
+          "client_id": "422372402168-fgn1o2gdej0fs25j4394l50evlch15ia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrrnWHMVBYhIQ6hx3U0klKViuvw295wX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "422372402168-fgn1o2gdej0fs25j4394l50evlch15ia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
