@@ -77,8 +77,8 @@ class _HomepageState extends State<Homepage> {
     print("User Sign Out");
   }
 
-  loginUser() {
-    googleSignIn.signIn();
+  loginUser() async{
+    await googleSignIn.signIn();
   }
 
   logoutUser() {
@@ -166,8 +166,8 @@ class _HomepageState extends State<Homepage> {
   Widget _signInButton() {
     return OutlineButton(
       splashColor: Colors.grey,
-      onPressed: () {
-        loginUser();
+      onPressed: () async{
+       await loginUser();
       },
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
       highlightElevation: 0,
