@@ -81,7 +81,7 @@ class changebalance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF757575),
+     //git color: Color(0xFF757575),
       child: Container(
         padding: EdgeInsets.only(top: 30, left: 40, right: 40),
         decoration: BoxDecoration(
