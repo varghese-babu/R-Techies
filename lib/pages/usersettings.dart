@@ -17,7 +17,6 @@ class _UserSettingsState extends State<UserSettings> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final usersReference = Firestore.instance.collection("users");
   String username;
   final DateTime timestamp = DateTime.now();

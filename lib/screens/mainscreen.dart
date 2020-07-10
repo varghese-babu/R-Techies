@@ -95,7 +95,7 @@ class _HomeuiState extends State<Homeui> {
                     showModalBottomSheet(
                         context: context,
                         builder: (context) => changebalance1(
-                              oper: true,
+                              oper: false,
                               currentOnlineUserId: currentOnlineUserId,
                             ));
                   },
@@ -111,11 +111,8 @@ class _HomeuiState extends State<Homeui> {
                 Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  Toget(gCurrentUser: widget.userProfileId)));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Toget()));
                     },
                     child: Container(
                       height: 150,
@@ -139,12 +136,8 @@ class _HomeuiState extends State<Homeui> {
                 Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Toget(
-                                    gCurrentUser: widget.userProfileId,
-                                  )));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Toget()));
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -222,7 +215,7 @@ class _HomeuiState extends State<Homeui> {
                         }
                       },
                       child: Text(
-                        "Deposit",
+                        "Add",
                         style: TextStyle(color: Colors.black54, fontSize: 25),
                       ),
                     ),
@@ -306,7 +299,7 @@ class _HomeuiState extends State<Homeui> {
                         }
                       },
                       child: Text(
-                        "Withdraw",
+                        "Add",
                         style: TextStyle(color: Colors.black54, fontSize: 25),
                       ),
                     ),
