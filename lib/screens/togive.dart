@@ -156,7 +156,9 @@ class _TogiveState extends State<Togive> {
     } else if (postOrientation == "grid") {
       List<GridTile> gridTilesList = [];
       postsList1.forEach((eachPost) {
-        gridTilesList.add(GridTile(child: Cards(eachPost)));
+        gridTilesList.add(GridTile(
+          child: Cards(post: eachPost, gUser: widget.gCurrentUser),
+        ));
       });
       return Column(children: gridTilesList);
       //   return Column(
@@ -167,10 +169,16 @@ class _TogiveState extends State<Togive> {
   }
 }
 
-class Cards extends StatelessWidget {
+class Cards extends StatefulWidget {
   final Post post;
-  Cards(this.post);
+  final String gUser;
+  final bool loading;
+  Cards({this.post, this.gUser, this.loading});
+  @override
+  _CardsState createState() => _CardsState();
+}
 
+class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -192,7 +200,7 @@ class Cards extends StatelessWidget {
               width: 10,
             ),
             Text(
-              "Rs ${post.amount} \nfrom ${post.userwhom}",
+              "Rs ${widget.post.amount} \nfrom ${widget.post.userwhom}",
               style: TextStyle(color: Colors.white54, fontSize: 15),
             ),
             SizedBox(
@@ -202,11 +210,11 @@ class Cards extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                Text("Date:${post.timestamp}",
+                Text("Date:${widget.post.timestamp}",
                     style: TextStyle(color: Colors.white54, fontSize: 20)),
                 FlatButton(
                   onPressed: () {
-                    print("pressed");
+                    received(widget.gUser);
                   },
                   child: Container(
                     padding: EdgeInsets.only(top: 5),
@@ -226,5 +234,17 @@ class Cards extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  received(String guser) {
+    print("removve");
+    Firestore.instance
+        .collection("posts1")
+        .document(guser)
+        .collection("usersPosts1")
+        .document(widget.post.postId)
+        .delete();
+
+    setState(() {});
   }
 }
