@@ -1,6 +1,6 @@
-import 'package:Personal_Valet/pages/homepage.dart';
+import 'package:Personal_Wallet/pages/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:Personal_Valet/screens/toget.dart';
+import 'package:Personal_Wallet/screens/toget.dart';
 
 void main() {
   runApp(MyApp());

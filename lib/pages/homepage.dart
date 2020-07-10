@@ -1,17 +1,20 @@
 import 'dart:async';
 
-import 'package:Personal_Valet/pages/sidebar.dart';
-import 'package:Personal_Valet/pages/userpage.dart';
-import 'package:Personal_Valet/pages/usersettings.dart';
-import 'package:Personal_Valet/user/userdata.dart';
+import 'package:Personal_Wallet/pages/sidebar.dart';
+import 'package:Personal_Wallet/pages/userpage.dart';
+import 'package:Personal_Wallet/pages/usersettings.dart';
+import 'package:Personal_Wallet/user/userdata.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
 
+final GoogleSignIn googleSignIn = GoogleSignIn();
+
 final usersReference = Firestore.instance.collection("users");
 final postsReference = Firestore.instance.collection("posts");
+final postsReference1 = Firestore.instance.collection("posts1");
 
 class Homepage extends StatefulWidget {
   @override
@@ -97,10 +100,10 @@ class _HomepageState extends State<Homepage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text("Personal Wallet",
+            Text("R Wallet",
                 style: TextStyle(
                     color: Colors.white, fontFamily: "Bangers", fontSize: 40)),
-            Text("tagline",
+            Text("ItsTimeToPay",
                 style: TextStyle(color: Colors.redAccent, fontSize: 15)),
             SizedBox(
               height: 30,

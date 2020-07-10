@@ -1,12 +1,13 @@
-import 'package:Personal_Valet/pages/homepage.dart';
-import 'package:Personal_Valet/user/userdata.dart';
-import 'package:Personal_Valet/widget/circularprogress.dart';
+import 'package:Personal_Wallet/pages/homepage.dart';
+import 'package:Personal_Wallet/screens/togive.dart';
+import 'package:Personal_Wallet/user/userdata.dart';
+import 'package:Personal_Wallet/widget/circularprogress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:Personal_Valet/components/round_iconbutton.dart';
-import 'package:Personal_Valet/components/reusable_card.dart';
-import 'package:Personal_Valet/screens/toget.dart';
-import 'package:Personal_Valet/screens/addtask.dart';
+import 'package:Personal_Wallet/components/round_iconbutton.dart';
+import 'package:Personal_Wallet/components/reusable_card.dart';
+import 'package:Personal_Wallet/screens/toget.dart';
+import 'package:Personal_Wallet/screens/addtask.dart';
 
 var balance;
 
@@ -95,7 +96,7 @@ class _HomeuiState extends State<Homeui> {
                     showModalBottomSheet(
                         context: context,
                         builder: (context) => changebalance1(
-                              oper: false,
+                              oper: true,
                               currentOnlineUserId: currentOnlineUserId,
                             ));
                   },
@@ -111,8 +112,11 @@ class _HomeuiState extends State<Homeui> {
                 Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Toget()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Toget(gCurrentUser: widget.userProfileId)));
                     },
                     child: Container(
                       height: 150,
@@ -136,8 +140,12 @@ class _HomeuiState extends State<Homeui> {
                 Expanded(
                   child: FlatButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Toget()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Togive(
+                                    gCurrentUser: widget.userProfileId,
+                                  )));
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -215,7 +223,7 @@ class _HomeuiState extends State<Homeui> {
                         }
                       },
                       child: Text(
-                        "Add",
+                        "Deposit",
                         style: TextStyle(color: Colors.black54, fontSize: 25),
                       ),
                     ),
@@ -299,7 +307,7 @@ class _HomeuiState extends State<Homeui> {
                         }
                       },
                       child: Text(
-                        "Add",
+                        "Withdraw",
                         style: TextStyle(color: Colors.black54, fontSize: 25),
                       ),
                     ),

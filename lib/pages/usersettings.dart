@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:Personal_Valet/pages/homepage.dart';
+import 'package:Personal_Wallet/pages/homepage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class UserSettings extends StatefulWidget {
@@ -17,6 +17,7 @@ class _UserSettingsState extends State<UserSettings> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final usersReference = Firestore.instance.collection("users");
   String username;
   final DateTime timestamp = DateTime.now();

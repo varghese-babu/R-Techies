@@ -7,15 +7,15 @@ import 'package:intl/intl.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:uuid/uuid.dart';
 
-class AddUserPay extends StatefulWidget {
+class AddUserPay1 extends StatefulWidget {
   final String gCurrentUser;
-  AddUserPay({this.gCurrentUser});
+  AddUserPay1({this.gCurrentUser});
 
   @override
-  _AddUserPayState createState() => _AddUserPayState();
+  _AddUserPay1State createState() => _AddUserPay1State();
 }
 
-class _AddUserPayState extends State<AddUserPay> {
+class _AddUserPay1State extends State<AddUserPay1> {
   final DateTime timestamp = DateTime.now();
   String postId = Uuid().v4();
   TextEditingController t1 = TextEditingController();
@@ -34,7 +34,7 @@ class _AddUserPayState extends State<AddUserPay> {
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {}), //clearPostInfo
         title: Text(
-          "New details for get",
+          "New details for give",
           style: TextStyle(
             fontSize: 24.0,
             color: Colors.black,
@@ -115,9 +115,9 @@ class _AddUserPayState extends State<AddUserPay> {
   }
 
   savePostInfoToFireStore({String l, String d}) {
-    postsReference
+    postsReference1
         .document(widget.gCurrentUser)
-        .collection("usersPosts")
+        .collection("usersPosts1")
         .document(postId)
         .setData({
       "postId": postId,

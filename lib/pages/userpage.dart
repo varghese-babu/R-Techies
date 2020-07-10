@@ -1,6 +1,6 @@
-import 'package:Personal_Valet/pages/homepage.dart';
-import 'package:Personal_Valet/user/userdata.dart';
-import 'package:Personal_Valet/widget/circularprogress.dart';
+import 'package:Personal_Wallet/pages/homepage.dart';
+import 'package:Personal_Wallet/user/userdata.dart';
+import 'package:Personal_Wallet/widget/circularprogress.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
